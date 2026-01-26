@@ -105,6 +105,7 @@ export function Services() {
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -left-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.35] [background-image:radial-gradient(circle_at_1px_1px,hsl(var(--foreground)/0.08)_1px,transparent_0)] [background-size:24px_24px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -134,7 +135,7 @@ export function Services() {
           </div>
         </ScrollAnimation>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
           {services.map((service, index) => {
             const Icon = service.icon;
             const gradient = gradients[index % gradients.length];
@@ -145,33 +146,42 @@ export function Services() {
             return (
               <StaggerItem key={service.id} animation="zoomIn">
                 <Card
-                  className="group relative overflow-hidden border bg-card shadow-md hover:shadow-lg transition-shadow duration-300 h-full"
+                  className="group relative overflow-hidden border bg-card/60 shadow-sm hover:shadow-xl transition-all duration-300 h-full backdrop-blur-sm supports-[backdrop-filter]:bg-card/40 hover:-translate-y-1"
                   data-testid={`card-service-${service.id}`}
+                  role="article"
+                  aria-label={title}
                 >
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 [background-image:radial-gradient(circle_at_1px_1px,hsl(var(--foreground)/0.10)_1px,transparent_0)] [background-size:20px_20px]" />
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                <CardContent className="relative p-6 lg:p-8">
-                  <div
-                    className={`flex items-start justify-between mb-6 ${isRTL ? "flex-row-reverse" : ""}`}
-                  >
-                    <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20">
-                      <Icon className="h-7 w-7 text-primary" />
+                  <CardContent className="relative p-6 lg:p-8">
+                    <div
+                      className={`flex items-start justify-between mb-6 ${isRTL ? "flex-row-reverse" : ""}`}
+                    >
+                      <div className="relative">
+                        <div className={`absolute -inset-3 bg-gradient-to-br ${gradient} blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-500`} />
+                        <div className="relative p-4 rounded-2xl bg-background/70 border border-primary/15 shadow-sm group-hover:border-primary/25 transition-colors duration-300">
+                          <Icon className="h-7 w-7 text-primary group-hover:scale-105 transition-transform duration-300" />
+                        </div>
+                      </div>
+                      <div className="p-2 rounded-full border border-transparent bg-background/40 group-hover:bg-background/70 group-hover:border-primary/15 transition-colors duration-300">
+                        <ArrowUpRight
+                          className={`h-4 w-4 text-muted-foreground/40 group-hover:text-primary transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${isRTL ? "-scale-x-100" : ""}`}
+                        />
+                      </div>
                     </div>
-                    <div className="p-2 rounded-full border border-transparent group-hover:border-primary/20 transition-colors">
-                      <ArrowUpRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </div>
-                  </div>
-                  <h3
-                    className={`text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300 ${isRTL ? "font-arabic text-right" : ""}`}
-                  >
-                    {title}
-                  </h3>
-                  <p
-                    className={`text-sm text-muted-foreground leading-relaxed ${isRTL ? "font-arabic text-right" : ""}`}
-                  >
-                    {description}
-                  </p>
-                </CardContent>
+                    <h3
+                      className={`text-xl font-bold mb-3 tracking-tight group-hover:text-primary transition-colors duration-300 ${isRTL ? "font-arabic text-right" : ""}`}
+                    >
+                      {title}
+                    </h3>
+                    <p
+                      className={`text-sm text-muted-foreground leading-relaxed ${isRTL ? "font-arabic text-right" : ""}`}
+                    >
+                      {description}
+                    </p>
+                  </CardContent>
                 </Card>
               </StaggerItem>
             );
