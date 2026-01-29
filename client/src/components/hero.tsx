@@ -210,7 +210,7 @@ export function Hero() {
               <div className="flex items-center justify-center gap-1 mb-1">
                 <Sparkles className="w-5 h-5 text-primary" />
                 <span className="text-3xl sm:text-4xl font-black text-foreground">
-                  500+
+                  100+
                 </span>
               </div>
               <span
